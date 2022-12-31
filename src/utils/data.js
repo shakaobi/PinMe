@@ -5,6 +5,6 @@
 export const userQuery = (userId) =>{
     const query = `*[_type == 'user' && _id == '${userId}']`;
     //userId can change from a document type
-    return query
+    return query;
 
 }

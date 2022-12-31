@@ -1,24 +1,24 @@
-import React,{useState, useRef, useEffect} from 'react'
-import {HiMenu} from 'react-icons/hi'
+import React,{useState, useRef, useEffect} from 'react';
+import {HiMenu} from 'react-icons/hi';
 import { AiFillCloseCircle} from 'react-icons/ai';
-import {Link, Route, Routes } from 'react-router-dom'
+import {Link, Route, Routes } from 'react-router-dom';
 import {Sidebar, UserProfile }from '../components';
 import { client } from './client';
-import pinIcon from '../assets/pinIcon.png'
+import pinIcon from '../assets/pinIcon.png';
 import Pins from './Pins';
 
 import { userQuery } from '../utils/data';
 // home page will contain a main section that display pictures 
 const Home = () => {
-  const [toggleSidebar, setToggleSidebar] = useState(false)
-  const [user, setUser] = useState()
-  const scrollRef = useRef(null)
+  const [toggleSidebar, setToggleSidebar] = useState(false);
+  const [user, setUser] = useState();
+  const scrollRef = useRef(null);
   //hooks
   const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
   // set the item when we logged in , checking if item is undefined. if not undefined get the item from localstorage. if no user, clear local storage/ token can expire
 
   useEffect(() => {
-    const query = userQuery(userInfo?.googleId)
+    const query = userQuery(userInfo?.googleId);
     client.fetch(query).then((data) =>{
       setUser(data[0])//getting one specific user
     });
@@ -26,8 +26,8 @@ const Home = () => {
   //writing s sanity query from utils
   //query user based on googleId from profileId
   useEffect(() => {
-    scrollRef.current.scrollTo(0,0)
-  },[])
+    scrollRef.current.scrollTo(0,0);
+  },[]);
 //setting the scroll to be at the top of the page
   
   return (
@@ -44,8 +44,8 @@ const Home = () => {
           <img src={pinIcon} alt='icon' className='w-28'/>
           </Link>
           <Link to={`user-profile/${user?._id}`}>
-          <img src={user?.image} alt='user-pic' className='w-28'/>
-          {/* have access to user image with a click */}
+          <img src={user?.image} alt='user-pic' className='w-9 h-9 rounded-full'/>
+          
           </Link>
         </div>
         {toggleSidebar &&(
@@ -72,4 +72,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

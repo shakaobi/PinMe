@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function UserProfile() {
   return (
@@ -6,4 +6,4 @@ function UserProfile() {
   )
 }
 
-export default UserProfile
+export default UserProfile;

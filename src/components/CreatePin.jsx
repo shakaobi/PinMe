@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const CreatePin = () => {
   return (
@@ -6,4 +6,4 @@ const CreatePin = () => {
   )
 }
 
-export default CreatePin
+export default CreatePin;

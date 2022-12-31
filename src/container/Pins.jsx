@@ -1,14 +1,15 @@
 // main view that displays all the images 
-import React, {useState} from 'react'
-import {Navbar, Feed, PinDetail, CreatePin, Search } from '../components'
-import { Routes , Route} from 'react-router-dom'
+import React, {useState} from 'react';
+import {Navbar, Feed, PinDetail, CreatePin, Search } from '../components';
+import { Routes , Route} from 'react-router-dom';
 const Pins = ({user}) =>{
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('');
   // we want to share this across the application 
   return (
     <div className='px-2 md:px-5'>
       <div className='bg-gray-50'>
         <Navbar searchTerm={searchTerm} setsearchTerm={setSearchTerm} user={user && user}/>
+        {/* search for user */}
       </div>
       <div className='h-full'>
         <Routes>
@@ -24,4 +25,4 @@ const Pins = ({user}) =>{
   )
 }
 
-export default Pins
+export default Pins;
