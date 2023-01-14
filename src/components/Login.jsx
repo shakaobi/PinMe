@@ -1,14 +1,29 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import {GoogleLogin} from 'react-google-login';
+import jwt_decode from "jwt-decode";
+import { gapi } from 'gapi-script';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import loginImage from '../assets/loginImage.mp4';
 import pinIcon from '../assets/pinIcon.png';
 import { client } from '../container/client';
 
 const Login = () => {
+  // const [ profile, setProfile ] = useState([]);
   const navigate = useNavigate();
 
+  // useEffect((res) => {
+  //   const start = () => {
+  //     gapi.auth2.init({
+  //       clientId: process.env.REACT_APP_GOOGLE_API_TOKEN,
+  //       scope: ""
+  //     })
+  //   }
+  //   gapi.load('client:auth2', start);
+  // });
+
   const responseGoogle = (res) => {
+
     // try{
       console.log('this is the resObject:',res)
       // const decoded = jwt_decode(res.credentials)
@@ -59,6 +74,7 @@ const Login = () => {
               </div>
               {/*When the google button is clcked, it grabs the API token. It will let you know what happens based on response */}
               <div>
+              {/* {profile ? ( */}
                 <GoogleLogin
                   clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
                   onSuccess={responseGoogle}
@@ -67,6 +83,7 @@ const Login = () => {
                   }}
                   cookiePolicy='single_host_origin' 
                 />
+                {/* // ):null} */}
               </div> 
           </div>
         {/* </GoogleOAuthProvider>  */}

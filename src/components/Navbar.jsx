@@ -17,11 +17,9 @@ const Navbar = ({searchTerm, setSearchTerm, user}) => {
         value={searchTerm}
         onFocus={(e) => navigate('/search')}
         // move from one feed to search feed
-        
         />
       </div>
-      Navbar
-      </div>
+    </div>
   )
 }
 
