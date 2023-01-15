@@ -25,14 +25,17 @@ const Feed = () => {
     }else{
       setLoading(true);
       client.fetch(feedQuery).then((data)=>{
-  //       setPins(data);
-  //       setLoading(false)
+        setPins(data);
+        setLoading(false)
       })
     }
   }, [categoryId])
   
-  if(loading) return <Spinner message='Loading your new ideas!'/>
-
+  if(loading){
+  return (
+      <Spinner message='Loading your new ideas!'/>
+    );
+  }
   return (
     <div>
       {pins && (<MasonryLayout pins={pins}/>)}
