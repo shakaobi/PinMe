@@ -16,7 +16,28 @@ const Pin = ({pin}) => {
   let alreadySaved = pin?.save?.filter((item)=>item?.postedBy?._id === user?.googleId);
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
 
-  const savepin = (id) = > {}
+  const savePin = (id) => {
+    if(alreadySaved?.length === 0) {
+        setSavingPost(true);
+        client
+        .patch(id)
+        .setIfMissing({save: [] })
+        .insert('after', 'save[-1]', [{
+            _key: uuidv4(),
+            userId: user?.googleId,
+            postedBy:{
+                _type:'postedBy',
+                _ref: user?.googleId,
+            },
+            
+            }])
+            .commit()
+            .then(()=>{
+                window.location.reload();
+                setSavingPost(false);
+            })
+        }
+  }
   const {postedBy, image, _id, destination} = pin
     return (
     <div className='m-2'>
