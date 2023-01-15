@@ -16,7 +16,7 @@ const Home = () => {
   const scrollRef = useRef(null);
   //hooks
   const userInfo = fetchUser();
-  
+
   useEffect(() => {
     const query = userQuery(userInfo?.googleId);
     client.fetch(query).then((data) =>{
@@ -44,7 +44,7 @@ const Home = () => {
           <img src={pinIcon} alt='icon' className='w-28'/>
           </Link>
           <Link to={`user-profile/${user?._id}`}>
-          <img src={user?.image} alt='user-pic' className='w-9 h-9 rounded-full'/>
+          <img src={user?.image} alt='user-pic' className='w-9 h-9 rounded-full' referrerPolicy="no-referrer"/>
           
           </Link>
         </div>

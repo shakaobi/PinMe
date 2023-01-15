@@ -15,7 +15,6 @@ const MasonryLayout = ({pins}) => {
   return (
     <Masonry className ='flesx animate-slide-fwd' breakpointCols={breakpointObj}>
       {pins?.map((pin) => <Pin key={pin._id} pin={pin} className='w-max' />)}
-      MasonryLayout
       </Masonry>
   )
 }

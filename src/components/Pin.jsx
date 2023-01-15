@@ -1,10 +1,10 @@
 import React,{useState} from 'react'
 import {client, urlFor} from '../container/client';
-import {Link, Navigate, useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {v4 as uuidv4 } from 'uuid'
 import { MdDownloadForOffline  } from 'react-icons/md';
 import { AiTwotoneDelete } from 'react-icons/ai';
-import {BsFillArrowUpRightCircleFill } from 'react-icons/md'
+import {BsFillArrowUpRightCircleFill } from 'react-icons/bs'
 import { fetchUser } from '../utils/fetchUser';
 
 const Pin = ({pin}) => {
@@ -27,7 +27,7 @@ const Pin = ({pin}) => {
             userId: user?.googleId,
             postedBy:{
                 _type:'postedBy',
-                _ref: user?.googleId,
+                _ref:user?.googleId,
             },
             
             }])
@@ -107,13 +107,13 @@ const Pin = ({pin}) => {
                         {
                             postedBy?._id === user?.googleId && (
                                 <button
-                                type='button'
-                                onClick={(e)=>{
-                                    e.stopPropagation();
-                                    deletePin(_id)
-                                }}
-                                className='bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none'
-                                >
+                                    type='button'
+                                    onClick={(e)=>{
+                                        e.stopPropagation();
+                                        deletePin(_id)
+                                    }}
+                                    className='bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none'
+                                    >
                                     <AiTwotoneDelete />         
                                 </button>
                             )
