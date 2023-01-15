@@ -5,10 +5,19 @@ import {v4 as uuidv4 } from 'uuid'
 import { MdDownloadForOffline  } from 'react-icons/md';
 import { AiTwotoneDelete } from 'react-icons/ai';
 import {BdFillArrowUpRightCircleFill } from 'react-icons/md'
-const Pin = ({pin: {postedBy, image, _id, destination}}) => {
+import { fetchUser } from '../utils/fetchUser';
+
+const Pin = ({pin}) => {
   const [postHovered, setPostHovered] = useState(false)
   const [savingPost, setSavingPost] = useState(false)
   const navigate = useNavigate();
+
+  const user = fetchUser()
+  let alreadySaved = pin?.save?.filter((item)=>item?.postedBy?._id === user?.googleId);
+  alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
+
+  const savepin = (id) = > {}
+  const {postedBy, image, _id, destination} = pin
     return (
     <div className='m-2'>
         <div
@@ -37,6 +46,22 @@ const Pin = ({pin: {postedBy, image, _id, destination}}) => {
                         ><MdDownloadForOffline/>
                         </a>
                     </div>
+                    {alreadySaved?.length !== 0?(
+                        <button type='button' className='bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3x1 hover:shadow-md outline-none'>
+                            {pin?.save?.length} Saved
+                        </button>
+                    ):(
+                        <button
+                        onClick={(e)=>{
+                            e.stopPropagation();
+                            savePin(_id);
+                        }}
+                        type='button'
+                        className='bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3x1 hover:shadow-md outline-none'
+                        >
+                            {pin?.save?.length} {savingPost ? 'Saving' : 'Save'}
+                        </button>
+                    )}
 
                 </div>
                 </div>

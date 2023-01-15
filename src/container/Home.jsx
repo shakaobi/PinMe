@@ -8,15 +8,15 @@ import pinIcon from '../assets/pinIcon.png';
 import Pins from './Pins';
 
 import { userQuery } from '../utils/data';
+import { fetchUser } from '../utils/fetchUser';
 // home page will contain a main section that display pictures 
 const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [user, setUser] = useState();
   const scrollRef = useRef(null);
   //hooks
-  const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
-  // set the item when we logged in , checking if item is undefined. if not undefined get the item from localstorage. if no user, clear local storage/ token can expire
-
+  const userInfo = fetchUser();
+  
   useEffect(() => {
     const query = userQuery(userInfo?.googleId);
     client.fetch(query).then((data) =>{
