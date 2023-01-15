@@ -4,7 +4,7 @@ import {Link, Navigate, useNavigate} from 'react-router-dom'
 import {v4 as uuidv4 } from 'uuid'
 import { MdDownloadForOffline  } from 'react-icons/md';
 import { AiTwotoneDelete } from 'react-icons/ai';
-import {BdFillArrowUpRightCircleFill } from 'react-icons/md'
+import {BsFillArrowUpRightCircleFill } from 'react-icons/md'
 import { fetchUser } from '../utils/fetchUser';
 
 const Pin = ({pin}) => {
@@ -37,6 +37,13 @@ const Pin = ({pin}) => {
                 setSavingPost(false);
             })
         }
+  }
+  const deletePin = (id) => {
+    client
+    .delete(id)
+    .then(()=>{
+        window.location.reload();
+    })
   }
   const {postedBy, image, _id, destination} = pin
     return (
@@ -83,11 +90,47 @@ const Pin = ({pin}) => {
                             {pin?.save?.length} {savingPost ? 'Saving' : 'Save'}
                         </button>
                     )}
-
                 </div>
+                    <div className='flex-justify-between items-center gap-2 w-full'>
+                        {destination?.slice(8).length > 0 ?(
+                            <a
+                                href={destination}
+                                target='_blank'
+                                className='bg-white-500 flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md'
+                                rel='noreferrer'
+                            >
+                                {' '}
+                                <BsFillArrowUpRightCircleFill/>
+                                {destination?.slice(8,17)}...
+                            </a>
+                        ): undefined}
+                        {
+                            postedBy?._id === user?.googleId && (
+                                <button
+                                type='button'
+                                onClick={(e)=>{
+                                    e.stopPropagation();
+                                    deletePin(_id)
+                                }}
+                                className='bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none'
+                                >
+                                    <AiTwotoneDelete />         
+                                </button>
+                            )
+                        }
+                    </div>
                 </div>
             )}
-        </div>        
+        </div>
+        <Link to={`/user-profile/${postedBy?._id}`} 
+            className='flex gap-2 mt-2 items-center'>
+            <img
+            className='w-8 h-8 rounded-full object-cover'
+            src={postedBy?.image}
+            alt='user-profile'
+            />
+            <p className='font-semibold capitalize'>{postedBy?.userName}</p>
+        </Link>       
     </div>
   )
 }
