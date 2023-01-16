@@ -96,7 +96,7 @@ const CreatePin = ({user}) => {
                     <AiOutlineCloudUpload/>
                   </p>
                   <p className='text-lg'> Click to upLoad</p>
-              </div>
+                </div>
               <p className='mt-32 text-gray-400'>
               !!! use high quality images or TIFF less than 200MB
               </p>
@@ -171,7 +171,7 @@ const CreatePin = ({user}) => {
                   Select Category
                 </option>
                 {categories.map((item)=>(
-                  <option className='text-base border-0 outline-none capitalize bg-white text-black' value={item.name}>
+                  <option key={item.name} className='text-base border-0 outline-none capitalize bg-white text-black' value={item.name}>
                     {item.name}
                   </option>
                 ))}
