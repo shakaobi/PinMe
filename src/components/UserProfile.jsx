@@ -41,18 +41,39 @@ function UserProfile() {
 
   if(!user) return <Spinner message='Loading profile' />
 
+  const logOut = () => {
+    localStorage.clear();
+    navigate('/login')
+  }
   return (
     <div className='relative pb-2 h-full justify-center items-center'>
       <div className='flex flex-col pb-5'>
         <div className='flex flex-col justify-center items-center'>
-          <img
+          {/* <img
             className='w-full h-370 2xl:h-510 shadow-lg object-cover'
             src={user.image}
             alt='user-pic'
+          /> */}
+          <img
+            className='rounded-full h-20 w-20 -mt-10 shadow-xl object-cover'
+            src={user.image}
+            alt='user-pic'
           />
-
         </div>
+          <h1 className='font-bold text-3xl text-center mt-3'>
+            {user.userName}
+          </h1>
+          <div className='absolute top-0 z-1 right-0 p-2'>
+            {userId === User.googleId && (
+              <GoogleLogout
+                clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
+                buttonText='LogOut'
+                onLogoutSuccess={logOut}
+                cookiePolicy='single_host_origin' 
+              />
+            )}
 
+          </div>
       </div>
 
     </div>

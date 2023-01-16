@@ -9,32 +9,13 @@ import pinIcon from '../assets/pinIcon.png';
 import { client } from '../container/client';
 
 const Login = () => {
-  // const [ profile, setProfile ] = useState([]);
   const navigate = useNavigate();
 
-  // useEffect((res) => {
-  //   const start = () => {
-  //     gapi.auth2.init({
-  //       clientId: process.env.REACT_APP_GOOGLE_API_TOKEN,
-  //       scope: ""
-  //     })
-  //   }
-  //   gapi.load('client:auth2', start);
-  // });
-
   const responseGoogle = (res) => {
-
-    // try{
-      console.log('this is the resObject:',res)
-      // const decoded = jwt_decode(res.credentials)
-      console.log('this is the resObject:',res.profileObj)
-      // localStorage.setItem('user', JSON.stringify(decoded))
       localStorage.setItem('user', JSON.stringify(res.profileObj));
-      // console.log('this is the resObject:',res.profileObj)
       //currently coming in undefined, this is supposed to get the token from google, decode it and allow user acces. If not, warning sign 
       //local storage an be found in API in browser.
       const { name, googleId, imageUrl } = res.profileObj;
-      // const { name, googleId, imageUrl } = decoded;
       //gathering the three objects and greating them in the backend if authorized, if not, denied access.
       const doc = {
         _id:  googleId,
@@ -48,9 +29,6 @@ const Login = () => {
         //userName and image can be found in the backend schemas
         //_id and _type can be found in browser when attempting to connect
       })
-    // } catch (error) {
-    //   return error;
-    // };
   };
   return (
       <div className='flex justify-start items-center flex-col h-screen'>

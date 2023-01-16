@@ -52,7 +52,7 @@ const Home = () => {
           <div className='fixed w-4/5 bg-white overflow-y-auto shadow-md z-10 animate-slide-in'>
             {/* can toggle side bar and close it with icon */}
             <div className='absolute w-full flex justify-end items-center p-2'>
-              <AiFillCloseCircle fonstSize={30} className='cursor-pointer' onClick={()=> setToggleSidebar(false)} />
+              <AiFillCloseCircle fontSize={30} className='cursor-pointer' onClick={()=> setToggleSidebar(false)} />
             </div>
             <Sidebar closeToggle={setToggleSidebar} user={user && user}/>
             {/* This is for other devices */}
@@ -63,7 +63,7 @@ const Home = () => {
           {/* Here are the routes */}
           <Routes>
             {/* dynamic page with:userId */}
-            <Route path='/user-profile:userId' element={<UserProfile/>}/>
+            <Route path='/user-profile/:userId' element={<UserProfile/>}/>
             {/* if user exist */}
             <Route path='/*' element={<Pins user={user && user}/>}/>
           </Routes>

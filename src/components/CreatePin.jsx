@@ -112,7 +112,7 @@ const CreatePin = ({user}) => {
             <div className='relative h-full'>
               <img
                 src={imageAsset?.url}
-                alt='upload-pic'
+                alt='uploaded-pic'
                 className='h-full w-full'
                 />
               <button

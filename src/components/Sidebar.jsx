@@ -1,19 +1,15 @@
 import React from 'react';
 import {NavLink, Link} from 'react-router-dom';
 import {RiHomeFill} from 'react-icons/ri';
-import { IosIosArrowFoward} from 'react-icons/io';
+import { IoIosArrowForward} from 'react-icons/io';
 import pinIcon from '../assets/pinIcon.png';
+import { categories } from '../utils/data';
 const Sidebar = ({ user, closeToggle }) => {
   const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitilize-text';
   const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black transition-all duration-200 ease-in-out capitilize-text';
   //two functions to toggle the sidebar
-  const categories =[
-    {name: 'Animals'},
-    {name: 'Wallpapers '},
-    {name: 'Photography'},
-    {name: 'Gaming'},
-    {name: 'Coding'},
-  ]
+  
+
   //categories using. Will be changed later
   const handleCloseSidebar = () => {
     if(closeToggle) closeToggle(false);
@@ -40,19 +36,19 @@ const Sidebar = ({ user, closeToggle }) => {
             {/* Just a icon from react */}
             Home
           </NavLink>
-          <h3 className='mt-2 px-5 text-base 2xl:text-xl'> Discover Categories
+          <h3 className='mt-2 px-5 text-base 2xl:text-xl'> Discover Categories</h3>
           {categories.slice(0,categories.length -1).map((category)=>(
             // mapping through the different category names
             <NavLink
-            to={`/category/${category.name}`}
-            className={({isActive})=> isActive ? isActiveStyle : isNotActiveStyle}
-            onClick={handleCloseSidebar}
-            key={category.name}
-            >
-            {category.name}
+              to={`/category/${category.name}`}
+              className={({isActive}) => (isActive ? isActiveStyle : isNotActiveStyle)}
+              onClick={handleCloseSidebar}
+              key={category.name}
+              >
+              <img src={category.image} className='w-8 h-8 rounded-full shadow-sm'/>
+              {category.name}
             </NavLink>
           ))}
-          </h3>
         </div>
       </div>
       {/* if there is a user, show user, if not redirect */}
@@ -64,6 +60,7 @@ const Sidebar = ({ user, closeToggle }) => {
         >
          <img src={user.image} className='w-10 h-10 rounded-full' alt='user-profile' />
          <p>{user.userName}</p>
+         <IoIosArrowForward/>
         </Link>
       )}
     </div>
