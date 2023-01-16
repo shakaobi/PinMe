@@ -77,8 +77,8 @@ const CreatePin = ({user}) => {
       {fields && (
         <p className='text-red-500 mb-5 text-xl transition-all duration-150 ease-in'>Please add all fields</p>
       )}
-      <div className='flex lg:flex-row flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w4/5 w-full'>
-        <div className='bg-secondaryColor p-3 flex-0.7 w-full'>
+      <div className='flex lg:flex-row flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5 w-full'>
+        <div className='bg-secondaryColor p-3 flex flex-0.7 w-full'>
           <div className='flex justify-center items-center flex-col border-2 border-dotted border-gray-300 p-3 w-full h-420'>
             {loading && (
               <Spinner />
@@ -92,11 +92,14 @@ const CreatePin = ({user}) => {
             <label>
               <div className='flex flex-col items-center justify-center h-full'>
                 <div className='flex flex-col justify-center items-center'>
-                  <p className='text-lg'> Click to upload</p>
-                </div>
-                  <p className='mt-32 text-gray-400'>
-                    !!! use high quality images or TIFF less than 200MB
+                  <p className='font-bold text-2xl'>
+                    <AiOutlineCloudUpload/>
                   </p>
+                  <p className='text-lg'> Click to upLoad</p>
+              </div>
+              <p className='mt-32 text-gray-400'>
+              !!! use high quality images or TIFF less than 200MB
+              </p>
               </div>
               <input
                 type='file'
@@ -108,7 +111,7 @@ const CreatePin = ({user}) => {
           ) : (
             <div className='relative h-full'>
               <img
-                src={imageAssest?.url}
+                src={imageAsset?.url}
                 alt='upload-pic'
                 className='h-full w-full'
                 />
@@ -148,9 +151,16 @@ const CreatePin = ({user}) => {
             placeholder='Tell everyone what your pin is about'
             className='outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2'
           />
+          <input
+          type='url'
+          value={destination}
+          onChange={(e)=> setDestination(e.target.value)}
+          placeholder='Add destination to link'
+          className='outline-none text-base sm:text-lg border-b-2 border-b-2 border-gray-200 p-2'
+          />
           <div className='flex flex-col'>
             <div>
-              <p className='mb-2 font-semibold text:lg sm:text-xl'> Choose Pin Category</p>
+              <p className='mb-2 font-semibold text:lg sm:text-xl'> Choose A Pin Category</p>
               <select
               onChange={(e)=>{
                 setCategory(e.target.value);
