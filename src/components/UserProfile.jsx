@@ -18,6 +18,7 @@ function UserProfile() {
   const { userId} = useParams();
 
   const User = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+  
   useEffect(()=> {
     const query = userQuery(userId);
     client.fetch(query).then((data) =>{
@@ -37,6 +38,7 @@ function UserProfile() {
       })
     }
   }, [text, userId]);
+
   if(!user) return <Spinner message='Loading profile' />
 
   return (
@@ -48,7 +50,6 @@ function UserProfile() {
             src={user.image}
             alt='user-pic'
           />
-
 
         </div>
 
