@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { MdDownloadForOffline } from 'react-icons/md';
+import { MdDownloadForOffline, MdSettingsAccessibility } from 'react-icons/md';
 import {Link, useParams} from 'react-router-dom'
 import {v4 as uuidv4} from 'uuid'
 
@@ -7,7 +7,6 @@ import {client, urlFor}from '../container/client';
 import MasonryLayout from './MasonryLayout';
 import {pinDetailMorePinQuery, pinDetailQuery} from '../utils/data';
 import Spinner from './Spinner';
-import { isHtmlElement } from 'react-router-dom/dist/dom';
 
 const PinDetail = ({user}) => {
   const {pinId} = useParams();
@@ -16,7 +15,47 @@ const PinDetail = ({user}) => {
   const [comment, setComment] = useState('');
   const [addingComment, setAddingComment] = useState(false);
 
-  
+  const fetchPinDetails = () =>{
+    const query = pinDetailQuery(pinId);
+
+    if(query){
+      client.fetch(`${query}`).then((data)=>{
+        setPinDetail(data[0]);
+        console.log(data);
+        if(data[0]){
+          const query1 = pinDetailMorePinQuery(data[0]);
+          client.fetch(query1).then((res) =>{
+            setPins(res);
+          });
+        }
+      });  
+    }
+  };
+  useEffect(()=>{
+    fetchPinDetails();
+  },[pinId]);
+
+  const addComment = () => {
+    if(comment){
+      setAddingComment(true);
+      client
+      .patch(pinId)
+      .setIfMissing({comments:[]})
+      .insert('after', 'comments[-1]',[{comment, _key: uuidv4(), postedBy: {_type:'postedBy', _ref: user._id}}])
+      .commit()
+      .then(() =>{
+        fetchPinDetails();
+        setComment('');
+        setAddingComment(false);
+      })
+    }
+  };
+
+  if(!pinDetail){
+    return(
+      <Spinner message='showing pin'/>
+    );
+  }
   return (
     <>
       {pinDetail && (
@@ -66,7 +105,7 @@ const PinDetail = ({user}) => {
             <h2 className='mt-5 text-2xl'> Comments</h2>
             <div className='max-h-370 overflow-y-auto'>
               {pinDetail?.comments?.map((item)=>(
-                <div className='flex gap-2 mt-5 items-center bg-white rouinded-lg' key={item.comment}>
+                <div className='flex gap-2 mt-5 items-center bg-white rounded-lg' key={item.comment}>
                   <img
                     src={ item.postedBy?.image}
                     className='w-10 h-10 rounded-full cursor-pointer'
@@ -80,13 +119,40 @@ const PinDetail = ({user}) => {
               ))}
             </div>
             <div className='flex flex-wrap m-6 gap-3'>
-              <Link to={user.image}
-              className='w-10 h-10 rounded-full cursor-pointer'
-              alt='user-profile'
-              >
+              <Link to={`/user-profile/${user._id}`}>
+                <img
+                  src={user.image}
+                  className='w-10 h-10 rounded-full cursor-pointer'
+                  alt='user-profile'
+                />
               </Link>
-
+              <input
+                className='flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300'
+                type='text'
+                placeholder='Add a comment'
+                value={comment}
+                onChange={(e)=> setComment(e.target.value)}
+              />
+              <button
+                type='button'
+                className='bg-red-500 text-white rounded-full px-6 py-2 font-semibold text-base outline-none'
+                onClick={addComment}
+              >
+                {addingComment ? 'Doing...' : 'Done'}
+              </button>
             </div>
+          </div>
+        </div>
+      )}
+      {pins?.length > 0 && (
+        <h2 className='text-center font-bold text-2xl mt-8 mb-4'>
+          More like this
+        </h2>
+      )}
+      {pins ?(
+        <MasonryLayout pins={pins} />
+      ): (
+        <Spinner message='Loading more pins'/>
       )}
     </>
   )
