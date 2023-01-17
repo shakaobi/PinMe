@@ -9,7 +9,7 @@ import {pinDetailMorePinQuery, pinDetailQuery} from '../utils/data';
 import Spinner from './Spinner';
 
 const PinDetail = ({user}) => {
-  const {pinId} = useParams();
+  const { pinId } = useParams();
   const [pins, setPins] = useState();
   const [pinDetail, setPinDetail] = useState();
   const [comment, setComment] = useState('');
@@ -33,7 +33,7 @@ const PinDetail = ({user}) => {
   };
   useEffect(()=>{
     fetchPinDetails();
-  },[pinId]);
+  }, [pinId]);
 
   const addComment = () => {
     if(comment){
@@ -64,6 +64,7 @@ const PinDetail = ({user}) => {
             <img
               className='rounded-t-3xl rounded-b-lg'
               src={(pinDetail?.image && urlFor(pinDetail?.image).url())}
+              referrerPolicy="no-referrer"
               alt='user-post'
             />
           </div>
@@ -109,6 +110,7 @@ const PinDetail = ({user}) => {
                   <img
                     src={ item.postedBy?.image}
                     className='w-10 h-10 rounded-full cursor-pointer'
+                    referrerPolicy="no-referrer"
                     alt='user-profile'
                   />
                   <div className='flex flex-col'>
@@ -151,7 +153,7 @@ const PinDetail = ({user}) => {
       )}
       {pins ?(
         <MasonryLayout pins={pins} />
-      ): (
+      ) : (
         <Spinner message='Loading more pins'/>
       )}
     </>

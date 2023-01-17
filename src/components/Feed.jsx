@@ -29,7 +29,9 @@ const Feed = () => {
         setLoading(false)
       })
     }
-  }, [categoryId])
+  }, [categoryId]);
+
+  if(!pins?.length) return <h2> No pins Available</h2>
   
   if(loading){
   return (

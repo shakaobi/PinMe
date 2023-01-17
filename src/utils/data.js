@@ -116,7 +116,7 @@ export const userSavedPinsQuery = (userId) => {
     const query = `*[_type == 'pin' && '${userId}' in save[].userId] |
     order(_createdAt desc){
         image{
-            assets->{
+            asset->{
                 url
             }
         },
@@ -153,7 +153,7 @@ export const userCreatedPinsQuery = (userId) =>{
             image
         },
         save[]{
-            podtedBy->{
+            postedBy->{
                 _id,
                 userName,
                 image
@@ -162,7 +162,7 @@ export const userCreatedPinsQuery = (userId) =>{
         
     }`;
     return query;
-}
+};
 export const searchQuery = (searchTerm) => {
     const query =`*[_type == 'pin' && title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*' ]{
         image {
